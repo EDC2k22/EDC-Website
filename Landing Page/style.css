@@ -104,10 +104,9 @@ width: 10rem;
     border-radius: 0.5rem!important;
 }
 .btn:active{
-    position: relative;
     top: 4px;
+    transform: translateY(4px);
 }
-
 #content{
   
 font-family: 'Source Sans Pro', sans-serif;
@@ -251,7 +250,8 @@ font-family: 'Source Sans Pro', sans-serif;
 #MoreVocab{
 float:right;
 padding-left: 0.6em;  
-padding-right: 0.6em;  
+padding-right: 0.6em; 
+width:6em;
 }
 #buttonVocab{
     display: flex;
@@ -272,4 +272,22 @@ padding-right: 0.6em;
 #about{
     height:20rem;
     width: 20rem;
+    /* margin-left: 2rem; */
+}
+
+#headinfo{
+    width:50rem ;
+    height: 20rem;
+    /* margin-right: 9rem; */
+}
+#aboutbody{
+    display: inline-block;
+    flex-wrap: wrap;
+}
+
+#aboutandhead{
+    display: flex;
+    flex-wrap: wrap;
+    background-color:skyblue;
+    justify-content: center;
 }
