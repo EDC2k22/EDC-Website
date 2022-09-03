@@ -253,7 +253,7 @@ font-family: 'Source Sans Pro', sans-serif;
     top: 5px;
 }
 
-#MoreVocab{
+.MoreVocab{
 float:right;
 padding-left: 0.6em;  
 padding-right: 0.6em; 
@@ -262,7 +262,7 @@ position: relative;
 bottom: 1em;
 }
 
-#buttonVocab{
+.buttonVocab{
     display: flex;
     flex-wrap: wrap;
     justify-content: center; 
@@ -287,14 +287,14 @@ bottom: 1em;
 #aboutandhead{
     display: flex;
     flex-wrap: wrap;
-    /* background-color:skyblue; */
+    background-color:skyblue;
     justify-content: center;
     
 }
 
-.background{
+/* .background{
     background-image: url("/images/bg.jpg");
     background-repeat: no-repeat;
     background-size:cover;
     background-size: 100% 100%;
-}
+} */
