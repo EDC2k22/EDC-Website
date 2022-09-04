@@ -1,0 +1,35 @@
+{%extends 'layout.html'%}{%block content%}
+
+<div class="login">
+  <div class="form-container">
+    <div class="form-body">
+      <form action="" class="the-form">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter your email"
+        />
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter your password"
+        />
+      </form>
+      <button class="submit" id="sub">Log In</button>
+    </div>
+    <!-- FORM BODY-->
+
+    <div class="form-footer">
+      <div>
+        <button class="forgot">Forgot Password ?</button>
+      </div>
+    </div>
+    <!-- FORM FOOTER -->
+  </div>
+  <!-- FORM CONTAINER -->
+</div>
+{%endblock content%}

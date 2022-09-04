@@ -1,0 +1,127 @@
+{% extends "layout.html"%}{%block content%}
+<section id="carouselOne" class="jumbotron">
+
+    <div id="carouselOneIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel"  data-interval="1000">
+  
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselOneIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselOneIndicators" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselOneIndicators" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 1"></button>
+      </div>
+  
+      <div class="carousel-inner" data-interval="1000" >
+  
+        <!-- Add images here  -->
+  
+        <div class="carousel-item active" >
+          <img src="{{url_for('static',filename='temp1.jpg')}}" class="d-block w-100 h-25" alt="...">
+        </div>
+  
+        <div class="carousel-item">
+          <img src="{{url_for('static',filename='temp1.jpg')}}" class="d-block w-100 h-25" alt="...">
+        </div>
+  
+        <div class="carousel-item">
+          <img src="{{url_for('static',filename='temp1.jpg')}}" class="d-block w-100 h-25" alt="...">
+        </div>
+  
+      </div>
+  
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselOneIndicators" data-bs-slide="prev" id="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+  
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselOneIndicators" data-bs-slide="next" id="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+  
+    </div>
+  
+  </section>
+  <br>
+  
+  <!-- Announcement section added by Azim -->
+  <div class="container-flex d-sm-flex px-sm-3 overflow-hidden" id="canvasForAnnouncement">
+  
+    <div class="announce text-light rounded badge badge-primary text-wrap" id="announce"  width="20%">
+      Announcement :
+    </div>
+  
+    <div class="animation d-flex flex-column justify-content-center" width="80%"> 
+  
+      <p id="demo"style="margin-top:20px;"></p>
+    </div>
+  </div>
+  <!-- About us by Azim -->
+  <section class="d-flex" style="justify-content: center;" id="aboutandhead">
+    <div class="card" id="about">
+      <div class="card-body" id="aboutbody">
+        <h4 class="card-title" style="text-align:center;">About Us</h4>
+        <br>
+        <p class="card-text" style="text-align:justify ;">The EDC of M. H. Saboo Siddik College of Engineering was Inaugurated on the 29th of september,2016 by Dr. Prasad, Faculty advisor, NITIE Centre for Student Enterprise And Mr.Uday Wankawala ,a Collaborator, facilitator & motivator ......</p>
+        <br><div style="display:flex ; justify-content:center">
+    
+          <a href="#" class="btn btn-primary" style="width:6em;">More</a>
+        </div>
+      </div>
+    </div>
+    <!-- <hr>
+    <br> -->
+    <a href="https://www.mhssce.ac.in/Faculty%20Profile.php?id=185" target="_self">
+    <div class="card bg-light text-dark" id="headinfo">
+      <img class="card-img" src="{{url_for('static',filename='Banner 1.png')}}" alt="Card image">
+      <div class="card-img-overlay">
+      </div>
+      <!-- <div class="card-footer">
+        <p style="font-size:2em;text-align: center;">Comittee head</p>
+      </div> -->
+    </div>
+  </a>
+    </section>
+    <br>
+  
+  <!-- Vocab series by Azim -->
+  <div>
+  </div>
+  <br>
+  <h3 class="myh3"id="Learn">Vocab Series</h3>
+  <br>
+  <h4 style="text-align: center; color: darkblue; font-size: 1.3em;text-shadow:2px 2px 3px turquoise;">(Exit Strategy, Fund Raising , Incubators it's all there. Here's your weekly dose of the Vocab Series.)</h4>
+  <hr>
+  <div class="card-deck" id="cardLearn">
+    
+    <div class="card">
+      <img class="card-img-top" src="{{url_for('static',filename='learnOne.png')}}" alt="Card image cap">  
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{{url_for('static',filename='learnTwo.png')}}" alt="Card image cap">
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{{url_for('static',filename='learnThree.png')}}"alt="Card image cap">
+    </div>
+  </div>
+  <div>
+  <div id="buttonVocab">
+  <button type="button" class="btn btn-primary" id="MoreVocab" onclick="">More</button>
+  </div>
+  
+  </div>
+  </div>
+  <br>
+  <hr>
+  <br>
+  
+  <div>
+  </div>
+  <!-- <br> -->
+  <!-- <h3 id="about" class="myh3">About us</h3> -->
+  <!-- <br> -->
+  <!-- <div id="aboutUs" class="container d-flex flex-column align-items-center shadow p-3 mb-5 bg-body rounded ">
+    The EDC of M. H. Saboo Siddik College of Engineering was Inaugurated on the 29th of september,2016 by Dr. Prasad, Faculty advisor, NITIE Centre for Student Enterprise And Mr.Uday Wankawala ,a Collaborator, facilitator & motivator in the Start-up eco-system.MHSSCOE-EDC aim to spark the minds for start-up among the students. It nurtures the students to bring new products and ideas to the market.EDC is committed to inspire the students by providing knowledge to become budding Entrepreneurs.
+    
+  </div> -->
+  
+  <!-- section Committee head Info -->
+{%endblock content%}
