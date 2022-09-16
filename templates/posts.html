@@ -47,9 +47,9 @@
     
     <h2 class="headd col " style="color: red;padding:0px">No Post Available !</h2>
     {% else %}
-
-    {% for post in posts %}
     <div class="row">
+    {% for post in posts %}
+   
         
 
     <div class="col-4">
@@ -83,6 +83,8 @@
                     <div class="details">
                         {% if post.brnch=="RR"%}
                         <h3> <i class="fas fa-users"></i> All branches </h3>
+                        {%elif post.brnch=="Computer Engineering"%}
+                        <h3> <i class="fas fa-users"></i> Comps </h3>
                         {%else%}
                         <h3> <i class="fas fa-users"></i> {{post.brnch}} </h3>
                         {%endif%}
@@ -97,47 +99,15 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
      
-            </section>
-        </div>  
+    </section>
+    </div> 
+    {% endfor%} 
     </div>
-        <!-- <div class="container p-5 rounded bg-light" style="box-shadow: none;"> 
-      
-        <div class="float-right " >
-         
-      
-       
-  
-     
-        <div class="verified  float-right"><span >{{post.date_posted.strftime("%d/%m/%Y")}}</span></div>
-        
-            
-        
-       
-        </div>
-        <div class="col-sm-8 mx-auto" >
-      
-        {% if post.imgsrc != "" %}
-       
-        <div class="imgg mb-4">
-          
-            <img  class = "img-fluid qimg" src="/static/question_images/{{post.imgsrc}}">
-        </div>
-        {%endif%}   
-    
-        <span class="questiontitle" >{{ post.title|safe }}</span>
    
-        <br>
-        <br>
-        <p class="optiontext font-weight-bold">Posted by :{{post.name}}</p>
-        <p class="optiontext font-weight-bold">Branch :{{post.branch}}</p>
-
-        <a class="btn btn-danger " style="border-radius: 17px;" href='/posts/delete/{{post.id}}'><i class="fa fa-trash-can"></i> Delete</a>
-        </div>
-      
-        </div> -->
-    {% endfor%}
+       
+   
 {% endif %}
 </div>
 </form>
