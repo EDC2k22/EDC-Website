@@ -1,0 +1,120 @@
+{% extends 'Newbase.html' %}
+
+{% block head %}
+<title>Posts</title> 
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+{% endblock %}
+
+{% block body %}
+
+
+
+<body style="background-color: #d9daf3;">
+<br>
+<div class="container" >
+
+  
+<div class="container-fluid row" style="align-items: center;">
+    <h1 class="headd col big-title" style="padding:0px">All Blogs</h1>
+    <!-- <label for="author" class="mr-2">Select Topic:</label> -->
+  
+    <form action='/sub' method='POST' style="margin-bottom: 2px;">
+        <select class="form-select py-2 mr-2 " name = "selsubbb" aria-label="" >
+          <!-- <option selected value="random" disabled="disabled">Choose Subject</option> -->
+          <option selected value="random">Choose Branch</option>
+          <option value="Computer Engineering">Computer Engineering</option>
+          <option value="IT">IT</option>
+          <option value="Mechanical">Mechanical</option>
+          <option value="Civil">Civil</option>
+          <option value="AIML">AIML</option>
+          <option value="EXTC">EXTC</option>
+          <option value="RR"  >All</option>
+
+        </select>
+        <button class="btn getstartedd mr-2  headdd" style ="height: 40px;" type="submit"><i class='fa-solid fa-magnifying-glass'></i>Search</button>
+  
+    </form>
+    {%if loggedid%}
+    <a  class="btn getstartedd headdd" style ="height: 40px;" href="/posts/new" ><i class="fa-solid fa-circle-plus"></i> Add Blog</a>
+{%endif%}
+
+
+
+</div>
+    <hr>
+    
+    {% if emp %}
+    
+    <h2 class="headd col " style="color: red;padding:0px">No Post Available !</h2>
+    {% else %}
+    <div class="row">
+    {% for post in posts %}
+   
+        
+
+    <div class="col-4">
+    <section class="featured" id="featured">
+
+        
+
+        <div class="box-container">
+    
+            <div class="box">
+                <div class="image-container">
+                    {% if post.imgsrc != "" %}
+                    <img src="/static/question_images/{{post.imgsrc}}" alt="">
+                    {%endif%}   
+                    <div class="info">
+                        <h3>{{post.date_posted.strftime("%d/%m/%Y")}}</h3>
+                        
+                    </div>
+                   
+                </div>
+                <div class="content">
+                    <div class="price">
+                        <h3 class="font-weight-bold">{{post.branch}}</h3>
+                        
+                  
+                    </div>
+                    <div class="price" style="color: black;">
+                        <h3 >Posted by : {{post.name}}</h3>
+                  
+                    </div>
+                    <div class="details">
+                        {% if post.brnch=="RR"%}
+                        <h3> <i class="fas fa-users"></i> All branches </h3>
+                        {%elif post.brnch=="Computer Engineering"%}
+                        <h3> <i class="fas fa-users"></i> Comps </h3>
+                        {%else%}
+                        <h3> <i class="fas fa-users"></i> {{post.brnch}} </h3>
+                        {%endif%}
+                       
+                        <h3> <i class="fas fa-eye"></i> 2 views  </h3>
+                    </div>
+                    <div class="buttons">
+                        <a href="#" class="getstartedd btn-sm mx-auto">Read more</a>
+                        {%if loggedid%}
+                        <a href='/posts/delete/{{post.id}}' class="btn-sm mx-auto getstarted bg-danger">Delete</a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    </section>
+    </div> 
+    {% endfor%} 
+    </div>
+   
+       
+   
+{% endif %}
+</div>
+</form>
+
+
+<hr>
+<!-- {{ ckeditor.load() }}
+{{ckeditor.config(name='titles')}} -->
+</body>
+{% endblock %}

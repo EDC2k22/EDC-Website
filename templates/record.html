@@ -1,0 +1,396 @@
+{% extends 'Newbase.html' %}
+
+{% block head %}
+<title>giving test</title>
+<style>
+@media only screen and (max-width: 780px){
+    table td{
+      font-size: 14px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+
+
+
+<div class="container-fluid">
+<body style="background-color:#d9daf3;">
+  <div class="jumbotron my-4 rounded-4" style=" border-radius:20px;box-shadow: 2px 12px 16px black; background-color: white;">
+    <h3 class="big-title" >Admin Panel </h3>
+    <hr>
+    <div class="row">
+   
+      <div class="col-md-4 ">
+          <div class="card my-2 " style="border-radius: 10px; background-color: #00c2ee;">
+
+            <div class="card-body">
+              <div class="row">
+              <h5 class="card-titlee my-auto mx-auto">EDC team : {{users}} </h5>
+              <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/team.png">
+            
+            </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="col-md-4 ">
+          <div class="card my-2 " style="border-radius: 10px; background-color: #f39c11;">
+
+            <div class="card-body">
+             <div class="row">
+              <h5 class="card-titlee my-auto mx-auto">News : {{newscount}} </h5>
+              <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/document.png">
+            </div>
+            </div>
+            </div>
+          </div>
+        
+        <div class="col-md-4 ">
+          <div class="card my-2 " style="border-radius: 10px; background-color: #00a65a;">
+
+            <div class="card-body">
+             <div class="row">
+              <h5 class="card-titlee my-auto mx-auto">Events : 0 </h5>
+              <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/completed-task.png">
+            </div>
+            </div>
+            </div>
+          </div>
+        
+
+        <div class="col-md-4 ">
+          <div class="card my-2 " style="border-radius: 10px; background-color: #de4b39;" >
+
+            <div class="card-body">
+             <div class="row">
+              <h5 class="card-titlee my-auto mx-auto ">Competitions  : 0</h5>
+              <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/gold-medal.png">
+            </div>
+            </div>
+            </div>
+       
+          </div>
+         
+       
+        </div>
+        <hr >
+        <div class="row mb-5 " >
+          <div class="col-md-6">
+        <h3 class="big-title" >President : {{presidentc}} </h3>
+
+        <hr>
+        <table class="table table-primary   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in president %}
+                 
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <td>{{res.fname+" "+res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+                
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h3 class="big-title" >Technical Members  : {{technicalcount}} </h3>
+
+        <hr>
+        <table class="table table-warning   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">profile</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in technical %}
+               
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/expert_images/{{res.image}}" style="width:50px; "></th>
+                    <td>{{res.fname +" " + res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+              
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+    </div>
+    <hr>
+        <div class="row my-5">
+          <div class="col-md-6">
+        <h3 class="big-title" >General Secretary :{{generalsecc}} </h3>
+
+        <hr>
+        <table class="table table-primary   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in generalsecretary %}
+                 
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <td>{{res.fname+" "+res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+                
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h3 class="big-title" >Creative  : {{creativec}} </h3>
+
+        <hr>
+        <table class="table table-warning   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">profile</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in creative %}
+               
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/expert_images/{{res.image}}" style="width:50px; "></th>
+                    <td>{{res.fname +" " + res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+              
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+    </div>
+    <hr>
+        <div class="row my-5">
+          <div class="col-md-6">
+        <h3 class="big-title" >Social Media : {{socialc}} </h3>
+
+        <hr>
+        <table class="table table-primary   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in Socialmedia %}
+                 
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <td>{{res.fname+" "+res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+                
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h3 class="big-title" >Organizing  : {{organizingc}} </h3>
+
+        <hr>
+        <table class="table table-warning   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">profile</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in organizing %}
+               
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/expert_images/{{res.image}}" style="width:50px; "></th>
+                    <td>{{res.fname +" " + res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+              
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+    </div>
+    <hr>
+        <div class="row my-5">
+          <div class="col-md-6">
+        <h3 class="big-title" >Treasurer : {{treasurerc}} </h3>
+
+        <hr>
+        <table class="table table-primary   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in treasurer %}
+                 
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <td>{{res.fname+" "+res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+                
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h3 class="big-title" >Public Relation  : {{publicrelationc}} </h3>
+
+        <hr>
+        <table class="table table-warning   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">profile</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in publicrelation %}
+               
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/expert_images/{{res.image}}" style="width:50px; "></th>
+                    <td>{{res.fname +" " + res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+              
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+    </div>
+    <hr>
+        <div class="row my-5">
+          <div class="col-md-6">
+        <h3 class="big-title" >Hospitality : {{hospitalityc}} </h3>
+
+        <hr>
+        <table class="table table-primary   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in hospitality %}
+                 
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <td>{{res.fname+" "+res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+                
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+      <div class="col">
+        <h3 class="big-title" >Members  : {{membc}} </h3>
+
+        <hr>
+        <table class="table table-warning   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">profile</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in member %}
+               
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/expert_images/{{res.image}}" style="width:50px; "></th>
+                    <td>{{res.fname +" " + res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+              
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      </div>
+    </div>
+    <hr>
+      </div>
+    
+    
+     
+      
+
+
+
+    <!-- <h4 class="big-title" >Number of Users : {{users}} </h4>
+
+    <h4 class="big-title" >Number of Experts : {{experts}} </h4>
+  
+    <h4 class="big-title" >Total Number of Questions : {{questions}} </h4>
+    <h4 class="big-title" >Verified Questions : {{vquestions}} </h4>
+    <h4 class="big-title" >Unverified Questions : {{uquestions}} </h4>
+    <hr> -->
+   
+  
+        </div>
+      </body>
+    </div>
+  
+{% endblock %}
