@@ -10,21 +10,17 @@ get_flashed_messages()%}
   ></button>
 </div>
 
-{%endfor%}
-
-<h1>Login</h1>
+<p id="demo">This is stuff</p>
+<script src="{{url_for('static',filename='js/myfile.js')}}"></script>
+{%endfor%} {%if name%}
+<h1>Hello {{name}}</h1>
+{%else%}
+<h1>Whats ur name?</h1>
 <br />
 <form method="post" autocomplete="off">
-  {{form.hidden_tag()}} {{form.username.label(class="form-label")}}
-  {{form.username(class="form-control")}}
-  {{form.password.label(class="form-label")}}
-  {{form.password(class="form-control")}}
-
+  {{form.hidden_tag()}} {{form.name.label(class="form-label")}}
+  {{form.name(class="form-control")}}
   <br />
   {{form.submit(class="btn btn-primary")}}
 </form>
-<br />
-<br />
-<br />
-
-{%endblock%}
+{%endif%} {%endblock%}
