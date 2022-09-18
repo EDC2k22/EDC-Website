@@ -489,8 +489,8 @@ h4{
 
 .featured .box-container .box{
   border:.1rem solid rgba(0,0,0,.2);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-  border-radius: .5rem;
+  box-shadow: 2px 6px 8px 0 rgb(22 22 26 / 18%);
+  border-radius: 1.7rem;
   overflow:hidden;
   background:#fff;
   flex:1 1 30rem;

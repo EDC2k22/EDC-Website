@@ -1,0 +1,108 @@
+{% extends 'Newbase.html' %} {% block head %}
+<title>Invest in Idea</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}} " />
+<style>
+  .input-group-text {
+    background-color: #021753;
+    color: rgb(255, 255, 255);
+  }
+</style>
+{% endblock %} {% block body %}
+
+<div class="container">
+  <div
+    class="jumbotron mt-3"
+    style="
+      background-color: rgb(233, 229, 229);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    "
+  >
+    <h3 class="big-title">Invest in Idea</h3>
+    <hr />
+    <form action="/book/{{current_user.id}}/{{post.id}}" method="POST">
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Name</span>
+        <input
+          type="text"
+          class="form-control"
+          name="questionn"
+          id="question"
+          placeholder=""
+          aria-label="Enter Content"
+          aria-describedby="addon-wrapping"
+          rows="3"
+          value="{{current_user.fname}} {{current_user.lname}}"
+          required
+        />
+      </div>
+      <br />
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Email</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder=""
+          name="op1n"
+          id="op1"
+          aria-label="Username"
+          aria-describedby="addon-wrapping"
+          value="{{current_user.email}}"
+          required
+        />
+      </div>
+      <br />
+
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Price range:</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder=""
+          name="op6n"
+          id="op6"
+          aria-label="Username"
+          aria-describedby="addon-wrapping"
+          required
+          maxlength="300"
+        />
+      </div>
+      <br />
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Mobile no.</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder=""
+          name="op7n"
+          value="{{current_user.phone}}"
+          id="op7"
+          aria-label="Username"
+          aria-describedby="addon-wrapping"
+          required
+          maxlength="300"
+        />
+      </div>
+      <br />
+
+      <textarea
+        class="form-control"
+        name="expn"
+        id="exp"
+        placeholder="Details"
+        aria-label="Enter Content"
+        rows="3"
+      ></textarea>
+      <br />
+      <div class="text-center mb-2">
+        <input
+          class="btn btn-success rounded-pill mt-2"
+          type="submit"
+          value="Submit "
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

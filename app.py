@@ -84,6 +84,30 @@ class Blogs(db.Model):
         return 'blogs ' + str(self.id)
 
 
+class Ideas(db.Model):
+    __tablename__ = 'ideas'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(100), nullable=False)
+
+    desc = db.Column(db.Text, nullable=False)
+    fund = db.Column(db.Text, nullable=False)
+    uname = db.Column(db.Text, nullable=False)
+    phone = db.Column(db.Text, nullable=False)
+    email = db.Column(db.Text, nullable=False)
+    uid = db.Column(db.Integer, nullable=False)
+    fund = db.Column(db.Text, nullable=False)
+    verified = db.Column(db.Text, nullable=False)
+    sold = db.Column(db.Text, nullable=False)
+
+    imgsrc = db.Column(db.String(100), default='')
+
+    date_posted = db.Column(db.DateTime, nullable=False,
+                            default=datetime.utcnow)
+
+    def __repr__(self):
+        return 'Idea ' + str(self.id)
+
+
 class Expert(db.Model, UserMixin):
     __tablename__ = 'expert'
     id = db.Column(db.Integer, primary_key=True)
@@ -102,7 +126,7 @@ class Expert(db.Model, UserMixin):
 
     def __repr__(self):
         # return 'expert ' + str(self.id)
-        return f"expert( '{self.email}','{self.id}','{self.subject}')"
+        return f"expert( '{self.email}','{self.id}','{self.subject}','{self.fname}','{self.lname}','{self.phone}')"
 
 
 class News(db.Model):
@@ -119,6 +143,26 @@ class News(db.Model):
         return f"date( '{self.id}')"
 
 
+class booking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pid = db.Column(db.Integer)
+    ownerid = db.Column(db.Integer)
+    title = db.Column(db.Text)
+    details = db.Column(db.Text, default="0")
+    done = db.Column(db.Text)
+
+    uid = db.Column(db.Integer)
+    name = db.Column(db.String(100), nullable=False)
+    mobile = db.Column(db.Text, nullable=False)
+    email = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False,
+                            default=datetime.utcnow)
+
+    def __repr__(self):
+        return 'booking ' + str(self.id) + str(self.uid)
+
+
 @app.route('/')
 def index():
     news = News.query.order_by(News.date.desc()).all()
@@ -129,8 +173,28 @@ def index():
 @login_required
 def profile():
     user = Expert.query.get_or_404(current_user.id)
+    ideas = Ideas.query.filter(Ideas.uid == current_user.id)
 
-    return render_template('profile.html', user=user)
+    ideascount = Ideas.query.filter(Ideas.uid == current_user.id).count()
+    if current_user.subject == "Investors":
+        investedideas = booking.query.filter(
+            booking.uid == current_user.id).all()
+        ideas = Ideas.query.filter(Ideas.verified == 1).all()
+
+        if len(ideas) == 0:
+
+            isEmpty = True
+        else:
+
+            isEmpty = False
+        if len(investedideas) == 0:
+
+            isEmptyy = True
+        else:
+
+            isEmptyy = False
+        return render_template('profile.html', user=user, ideas=ideas, emp=isEmpty, empp=isEmptyy, invidea=investedideas)
+    return render_template('profile.html', user=user, ideas=ideas, ideacount=ideascount)
 
 
 def save_picture(form_picture):
@@ -162,6 +226,71 @@ def expertverification():
 
         experts = Expert.query.all()
         return render_template('expertverification.html', posts=experts)
+    return render_template('Newindex.html', news=news)
+
+
+@app.route('/book/<int:uid>/<int:id>', methods=['GET', 'POST'])
+@login_required
+def book(uid, id):
+    news = News.query.order_by(News.date.desc()).all()
+    if current_user.is_authenticated and current_user.subject == "Investors":
+        post = Ideas.query.get_or_404(id)
+        if request.method == 'POST':
+            ownerid = post.uid
+            title = post.title
+
+            uid = uid
+            pid = id
+            name = request.form['questionn']
+            email = current_user.email
+            price = request.form['op6n']
+            mobile = request.form['op7n']
+            details = request.form['expn']
+            book = booking(title=title, ownerid=ownerid, pid=pid, uid=uid,
+                           name=name, mobile=mobile, price=price, email=email, details=details)
+
+            db.session.add(book)
+            db.session.commit()
+            return redirect('/profile')
+        return render_template('book.html', id=id, post=post)
+    return render_template('Newindex.html', news=news)
+
+
+@app.route('/ideaverification', methods=['GET', 'POST'])
+@login_required
+def ideaverification():
+    # print("hello")
+    news = News.query.order_by(News.date.desc()).all()
+    if current_user.subject == "Admin":
+
+        idea = Ideas.query.all()
+        return render_template('ideaverification.html', posts=idea)
+    return render_template('Newindex.html', news=news)
+
+
+@app.route('/Idea/<int:id>', methods=['GET', 'POST'])
+@login_required
+def ideaview(id):
+    # print("hello")
+    news = News.query.order_by(News.date.desc()).all()
+    if current_user.is_authenticated:
+
+        idea = Ideas.query.get_or_404(id)
+        book = booking.query.filter(booking.pid == id).all()
+        return render_template('ideapage.html', post=idea, books=book)
+    return render_template('Newindex.html', news=news)
+
+
+@app.route('/readblog/<int:id>', methods=['GET', 'POST'])
+@login_required
+def readblog(id):
+    # print("hello")
+    news = News.query.order_by(News.date.desc()).all()
+    if current_user.is_authenticated:
+
+        blog = Blogs.query.get_or_404(id)
+
+        return render_template('blogpage.html', post=blog)
     return render_template('Newindex.html', news=news)
 
 
@@ -244,6 +373,44 @@ def addnews():
     return render_template('Newindex.html', news=news)
 
 
+@app.route('/addidea', methods=['POST'])
+@login_required
+def addidea():
+    # print("hello")
+
+    if request.method == 'POST':
+        title = request.form['title']
+        desc = request.form['desc']
+        fund = request.form['fund']
+        uid = current_user.id
+        email = current_user.email
+        contact = current_user.phone
+        uname = current_user.fname+" "+current_user.lname
+        verified = "0"
+        sold = "0"
+        pic = request.files['avatar']
+
+        filename = secure_filename(pic.filename)
+    # print(filename+"this is the file name")
+        if filename != "":
+            # print(request.files)
+            pic = request.files['avatar']
+            filename = secure_filename(pic.filename)
+            fname = save_picture(filename)
+            pic.save(os.path.join(
+                app.config['QUESTION_IMAGE_UPLOAD_FOLDER'], fname))
+        else:
+            print("no image")
+            fname = ""
+
+        myidea = Ideas(title=title, desc=desc, fund=fund, uid=uid,
+                       uname=uname, verified=verified, sold=sold, imgsrc=fname, email=email, phone=contact)
+        db.session.add(myidea)
+        db.session.commit()
+        flash("Idea Added succesfully", "success")
+        return redirect('/profile')
+
+
 @app.route('/deletenews/<int:id>', methods=['GET', 'POST'])
 @login_required
 def deletenews(id):
@@ -258,6 +425,84 @@ def deletenews(id):
         return redirect('/managenews')
 
     return render_template('Newindex.html', news=news)
+
+
+@app.route('/deleteidea/<int:uid>/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deleteidea(uid, id):
+    # print("hello")
+
+    if current_user.id == uid or current_user.subject == "Admin":
+
+        idea = Ideas.query.get_or_404(id)
+        book = booking.query.filter(
+            booking.pid == id, booking.ownerid == uid).all()
+        if (len(book) > 0):
+            for bk in book:
+                db.session.delete(bk)
+                db.session.commit()
+        src = idea.imgsrc
+    # image_file = url_for('static', filename='question_images/')
+        if src != "":
+            os.remove(os.path.join(
+                app.config['QUESTION_IMAGE_UPLOAD_FOLDER'], src))
+        db.session.delete(idea)
+        db.session.commit()
+        flash("Idea deleted succesfully", "success")
+        return redirect('/profile')
+
+
+@app.route('/deleteinvestor/<int:uid>/<int:id>/<int:pid>', methods=['GET', 'POST'])
+@login_required
+def delinvestor(uid, id, pid):
+    # print("hello")
+
+    if current_user.id == uid:
+        idea = Ideas.query.get_or_404(pid)
+        idea.sold = "0"
+        book = booking.query.get_or_404(id)
+
+        db.session.delete(book)
+        db.session.commit()
+
+        flash("Request deleted succesfully", "success")
+        return redirect('/profile')
+
+
+@app.route('/acceptidea/<int:uid>/<int:bid>/<int:id>', methods=['GET', 'POST'])
+@login_required
+def acceptidea(uid, bid, id):
+    # print("hello")
+
+    if current_user.id == uid:
+
+        # book = booking.query.get_or_404(id)
+        idea = Ideas.query.get_or_404(id)
+        idea.sold = "1"
+        book = booking.query.get_or_404(bid)
+        book.done = "1"
+        db.session.commit()
+
+        flash("Idea Accepted succesfully", "success")
+        return redirect('/profile')
+
+
+@app.route('/rejectidea/<int:uid>/<int:bid>/<int:id>', methods=['GET', 'POST'])
+@login_required
+def rejectidea(uid, bid, id):
+    # print("hello")
+
+    if current_user.id == uid:
+
+        # book = booking.query.get_or_404(id)
+        idea = Ideas.query.get_or_404(id)
+        idea.sold = "0"
+        book = booking.query.get_or_404(bid)
+        book.done = "0"
+        db.session.commit()
+
+        flash("Idea Rejected succesfully", "success")
+        return redirect('/profile')
 
 
 @app.route('/expertsignup', methods=['GET', 'POST'])
@@ -318,6 +563,10 @@ def record():
 
         members = Expert.query.filter(
             Expert.subject == "Member", Expert.verified == 1).all()
+        investor = Expert.query.filter(
+            Expert.subject == "Investors", Expert.verified == 1).all()
+        investorcount = Expert.query.filter(
+            Expert.subject == "Investors", Expert.verified == 1).count()
         memberscount = Expert.query.filter(
             Expert.subject == "Member", Expert.verified == 1).count()
         generalsec = Expert.query.filter(
@@ -356,7 +605,7 @@ def record():
             Expert.subject == "Creative", Expert.verified == 1).count()
 
         return render_template('record.html', technical=technical, members=members, generalsec=generalsec, president=president, hospitality=hospitality, publicrelation=publicrelation, treasurer=treasurer, organizing=organizing, creative=creative, social=social, users=userno, technicalcount=technicalcount,
-                               membc=memberscount, generalsecc=generalseccount, presidentc=presidentcount, hospitalityc=hospitalitycount, publicrelationc=publicrelationcount, treasurerc=treasurercount, organizingc=organizingcount, creativec=creativecount, socialc=socialcount, newscount=newscount, member=members)
+                               membc=memberscount, generalsecc=generalseccount, presidentc=presidentcount, hospitalityc=hospitalitycount, publicrelationc=publicrelationcount, treasurerc=treasurercount, organizingc=organizingcount, creativec=creativecount, socialc=socialcount, newscount=newscount, member=members, investor=investor, investorcount=investorcount)
     return render_template('Newindex.html', news=news)
 
 
@@ -386,6 +635,36 @@ def expertedit(id, email, sub):
                 db.session.commit()
             db.session.commit()
             return redirect('/expertverification')
+
+    return render_template('Newindex.html', news=news)
+
+
+@app.route('/adminverify/<int:id>/<string:email>', methods=['POST'])
+@login_required
+def expertverify(id, email):
+    news = News.query.order_by(News.date.desc()).all()
+    if current_user.subject == "Admin":
+
+        post = Ideas.query.get_or_404(id)
+
+        if request.method == 'POST':
+
+            verify = request.form['inlineRadioOptionsnn'+str(email)]
+            print(verify)
+
+            post.verified = request.form['inlineRadioOptionsnn'+str(email)]
+            if verify == "1":
+
+                user = Ideas.query.get_or_404(id)
+
+                user.verify = 1
+                db.session.commit()
+            else:
+                user = Ideas.query.get_or_404(id)
+                user.verify = 0
+                db.session.commit()
+            db.session.commit()
+            return redirect('/ideaverification')
 
     return render_template('Newindex.html', news=news)
 

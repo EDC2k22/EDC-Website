@@ -54,7 +54,9 @@
       
 
       <marquee  class="" direction="left" scrollamount="12" class="my-auto">
+        <div class="row">
         {% for res in news %}
+        <div class="col">
      {%if res.color=="light"%}
         <h4 class="font-weight-bold text-{{res.color}}" >
           <span class="badge text-dark p-3 blink_me rounded-pill bg-{{res.color}}">New!!</span> {{res.news}}
@@ -64,7 +66,10 @@
         <span class="badge p-3 blink_me rounded-pill bg-{{res.color}}">New!!</span> {{res.news}}
       </h4>
       {%endif%}
+    </div>
         {% endfor%}
+
+      </div>
       </marquee>
     
     </div>

@@ -60,13 +60,25 @@
           </div>
         
 
-        <div class="col-md-4 ">
+        <!-- <div class="col-md-4 ">
           <div class="card my-2 " style="border-radius: 10px; background-color: #de4b39;" >
 
             <div class="card-body">
              <div class="row">
               <h5 class="card-titlee my-auto mx-auto ">Competitions  : 0</h5>
               <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/gold-medal.png">
+            </div>
+            </div>
+            </div>
+       
+          </div> -->
+        <div class="col-md-4 ">
+          <div class="card my-2 " style="border-radius: 10px; background-color: #274689;" >
+
+            <div class="card-body">
+             <div class="row">
+              <h5 class="card-titlee my-auto mx-auto ">Investors  : {{investorcount}}</h5>
+              <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/expert.png">
             </div>
             </div>
             </div>
@@ -369,6 +381,36 @@
             </thead>
         </table>
       </div>
+      </div>
+      <div class="col">
+        <h3 class="big-title" >Investors  : {{investorcount}} </h3>
+
+        <hr>
+        <table class="table table-warning   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">profile</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+              </tr>
+              <tbody>
+                  {% for res in investor %}
+               
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/expert_images/{{res.image}}" style="width:50px; "></th>
+                    <td>{{res.fname +" " + res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    
+                  </tr>
+              
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+      
     </div>
     <hr>
       </div>

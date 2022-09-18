@@ -9,17 +9,17 @@
 
 
 
-<body style="background-color: #d9daf3;">
+<body style="background-color: #fcfcfc;">
 <br>
-<div class="container" >
+<div class="container-fluid" >
 
-  
+  <div class="container-fluid p-5  " style="background-color: #e9e5cf; border-radius: 20px;   box-shadow: 2px 6px 8px 0 rgb(22 22 26 / 18%);">
 <div class="container-fluid row" style="align-items: center;">
-    <h1 class="headd col big-title" style="padding:0px">All Blogs</h1>
+    <h1 class="headd col big-title" style="padding:0px">EDC Blogs</h1>
     <!-- <label for="author" class="mr-2">Select Topic:</label> -->
   
     <form action='/sub' method='POST' style="margin-bottom: 2px;">
-        <select class="form-select py-2 mr-2 " name = "selsubbb" aria-label="" >
+        <select class="form-select py-2 mr-2 my-2 p-3" style="border-radius: 10px;" name = "selsubbb" aria-label="" >
           <!-- <option selected value="random" disabled="disabled">Choose Subject</option> -->
           <option selected value="random">Choose Branch</option>
           <option value="Computer Engineering">Computer Engineering</option>
@@ -31,7 +31,7 @@
           <option value="RR"  >All</option>
 
         </select>
-        <button class="btn getstartedd mr-2  headdd" style ="height: 40px;" type="submit"><i class='fa-solid fa-magnifying-glass'></i>Search</button>
+        <button class="btn getstartedd mr-2  my-2 headdd" style ="height: 40px;" type="submit"><i class='fa-solid fa-magnifying-glass'></i>Search</button>
   
     </form>
     {%if loggedid%}
@@ -41,25 +41,26 @@
 
 
 </div>
+</div>
     <hr>
     
     {% if emp %}
     
-    <h2 class="headd col " style="color: red;padding:0px">No Post Available !</h2>
+    <h2 class="headd col " style="color: rgb(245, 137, 137);padding:0px">No Blogs Available !</h2>
     {% else %}
     <div class="row">
     {% for post in posts %}
    
         
 
-    <div class="col-4">
+    <div class="col-lg-3 mb-2">
     <section class="featured" id="featured">
 
         
 
-        <div class="box-container">
+        <div class="box-container" >
     
-            <div class="box">
+            <div class="box ">
                 <div class="image-container">
                     {% if post.imgsrc != "" %}
                     <img src="/static/question_images/{{post.imgsrc}}" alt="">
@@ -92,7 +93,7 @@
                         <h3> <i class="fas fa-eye"></i> 2 views  </h3>
                     </div>
                     <div class="buttons">
-                        <a href="#" class="getstartedd btn-sm mx-auto">Read more</a>
+                        <a href="/readblog/{{post.id}}" class="getstartedd btn-sm mx-auto">Read more</a>
                         {%if loggedid%}
                         <a href='/posts/delete/{{post.id}}' class="btn-sm mx-auto getstarted bg-danger">Delete</a>
                         {%endif%}

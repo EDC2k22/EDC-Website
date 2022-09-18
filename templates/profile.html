@@ -2,9 +2,13 @@
 <title>Profile</title>
 
 {% endblock %} {% block body %}
-<section class="p-3" style="background-color: #eee;">
-  <div class="container py-5">
-    <div class="row">
+<div class="container" style="align-items: center; background-color: rgb(234, 229, 229); border-radius: 20px;">
+  <h1 class="headd col big-title" style="padding:0px">Dashboard</h1>
+ 
+  <div class="container rounded">
+<section class="p-2">
+  <div class=" py-5">
+    <div class="">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
@@ -15,7 +19,9 @@
               style="width: 150px"
             />
             <h5 class="my-3">{{user.fname +" "+user.lname }}</h5>
+            {% if current_user.subject!="Admin" and current_user.subject!="Investors"%}
             <p class="text-muted mb-1">{{user.branch}}</p>
+            {%endif%}
           </div>
         </div>
       
@@ -72,4 +78,247 @@
     </div>
   </div>
 </section>
+</div>
+</div>
+
+{% if current_user.subject!="Admin" and current_user.subject!="Investors"%}
+<div class="container pt-5">
+  <div class="row">
+   
+    <div class="col-md-4 ">
+        <div class="card my-2 " style="border-radius: 10px; background-color: #00c2ee;">
+
+          <div class="card-body">
+            <div class="row">
+            <h5 class="card-titlee my-auto mx-auto">Ideas : {{ideacount}} </h5>
+            <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/bulb.png">
+          
+          </div>
+          </div>
+        
+      </div>
+      </div>
+     
+      <div class="col-md-4 ">
+        <div class="card my-2 " style="border-radius: 10px; background-color: #00a65a;">
+
+          <div class="card-body">
+           <div class="row">
+            <h5 class="card-titlee my-auto mx-auto">Events : 0 </h5>
+            <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/completed-task.png">
+          </div>
+          </div>
+          </div>
+        </div>
+      
+
+      <!-- <div class="col-md-4 ">
+        <div class="card my-2 " style="border-radius: 10px; background-color: #de4b39;" >
+
+          <div class="card-body">
+           <div class="row">
+            <h5 class="card-titlee my-auto mx-auto ">Competitions  : 0</h5>
+            <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/gold-medal.png">
+          </div>
+          </div>
+          </div>
+     
+        </div> -->
+    
+        <div class="container mt-3" >
+          <hr>
+          <div class="row">
+            <div class="mb-2  col-md-10">
+              <h1 class="col big-title my-auto" style="padding:0px">My Ideas </h1>
+            </div>
+            <div class="col-md-2">
+              <a  class="btn getstartedd mr-3" style ="height: 40px;" data-toggle="modal" data-target="#modaladd" ><i class=" fa fa-plus-square "></i> Pitch Ideas</a>
+            </div>
+         
+         
+        </div>
+          <hr>
+        <table class="table table-warning ">
+          <thead class=" table-dark"> 
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Verification</th>
+                <th scope="col">Action</th>
+              </tr>
+              <tbody>
+                 {%for res in ideas%}
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/question_images/{{res.imgsrc}}" style="width:50px; "></th>
+                    <td>{{res.title}}</td>
+                    <td>{{res.date_posted.strftime("%d/%m/%Y")}}</td>
+                    <td>
+                      {%if res.verified=='0'%}
+                      <div class="notverified "><span >Not verified</span></div>
+                      {%else%}
+                      <div class="verified "><span >Verified</span></div>
+                      {%endif%}
+                    </td>
+                    <td>    
+                      <div class="row">
+                         
+                              <a class="btn btn-sm btn-success mr-2" href="/Idea/{{res.id}}">View</a>
+                              <a class="btn btn-sm btn-danger mr-2" href="deleteidea/{{res.uid}}/{{res.id}}">Delete</a>
+                      
+                      </div>
+                  </td>
+                  </tr>
+                 {%endfor%}
+                
+                 
+                </tbody>
+            </thead>
+        </table>
+</div>
+</div>
+
+<div class="modal fade" id="modaladd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Idea</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/addidea" method='POST' enctype="multipart/form-data">
+         
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Title:</label>
+            <input type="text" name="title" class="form-control" id="recipient-name" required>
+            <label for="desc-name" class="col-form-label">Description:</label>
+            <textarea type="text" name="desc" class="form-control" id="recipient-name" required></textarea>
+            <label for="recipient-name" class="col-form-label">Fund required:</label>
+            <input type="text" name="fund" class="form-control" id="recipient-name" required>
+            <div class="mx-auto my-auto ">
+              <label for="recipient-name" class="col-form-label">Image :</label>
+              <input type="file"
+              id="avatar" name="avatar">
+             </div>
+          </div>
+         
+       
+        <button type="submit" class="btn btn-secondary" >Add</button>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+{%endif%}
+
+{% if current_user.subject=="Investors"%}
+<hr>
+   <div class="container mt-3">
+    <div class="row">
+      <div class="mb-2  col-md-10">
+        <h1 class="col big-title my-auto" style="padding:0px">Ideas/Products :</h1>
+      </div>
+     </div>
+    <hr>
+{% if emp %}
+    
+<h2 class="headd col " style="color: red;padding:0px">No Post Available !</h2>
+{% else %}
+<div class="row">
+{% for post in ideas %}
+
+    
+
+<div class="col-lg-4 mb-2 mt-2">
+<section class="featured" id="featured">
+
+    
+
+    <div class="box-container" >
+
+        <div class="box ">
+            <div class="image-container">
+                {% if post.imgsrc != "" %}
+                <img src="/static/question_images/{{post.imgsrc}}" alt="">
+                {%endif%}   
+                
+                <div class="info ">
+                    <h3>{{post.date_posted.strftime("%d/%m/%Y")}}</h3>
+                    {%if post.sold=="0"%}
+                    <h3>Available</h3>
+                    {%else%}
+                    <h3>Booked</h3>
+                    {%endif%}
+                </div>
+             
+              
+               
+            </div>
+            <div class="content">
+                <div class="price">
+                    <h3 class="font-weight-bold">{{post.title}}</h3>
+                    
+              
+                </div>
+                <div class="price">
+                    <h4 class="">Amount : {{post.fund}} Rs</h4>
+                    
+              
+                </div>
+                <div class="price" style="color: black;">
+                    <h4 >Posted by : {{post.uname}}</h4>
+              
+                </div>
+             
+                <div class="buttons">
+                  {%if post.sold=="0"%}
+                    <a href="/Idea/{{post.id}}" class="getstartedd btn-sm mx-auto mt-3">Read more</a>
+                    {%endif%}
+                 
+                    {%if current_user.subject=="Investors"%}
+                    {%for res in invidea%}
+                      {%if post.id==res.pid%}
+                      {%if post.sold=="0"%}
+                      <a  class="getstartedd btn-sm  bg-warning mx-auto mt-3">Waiting</a>
+                      {%else%}
+                      <a  class="getstartedd btn-sm  bg-success mx-auto mt-3">Accepted</a>
+                      {%endif%}
+                      {%else%}
+                      <a href="/book/{{current_user.id}}/{{post.id}}" class="getstartedd btn-sm  bg-success mx-auto mt-3">Invest here</a>
+                      {%endif%}
+                    {%endfor%}
+                    {%if empp%}
+                    {%if post.sold=="0"%}
+                    <a href="/book/{{current_user.id}}/{{post.id}}" class="getstartedd btn-sm  bg-success mx-auto mt-3">Invest here</a>
+                      {%else%}
+                   
+                    {%endif%}
+                    {%endif%}
+                  
+                    {%endif%}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</section>
+</div> 
+{% endfor%} 
+</div>
+
+   
+
+{% endif %}
+
+</div>
+{%endif%}
+
 {% endblock %}
