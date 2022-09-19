@@ -5,7 +5,7 @@
 <div class="container">
   <div class="card p-5">
     <div class="row">
-      <div class="container my-auto mx-auto">
+      <div class="container my-auto mx-auto text-center">
         {% if post.imgsrc != "" %}
         <img
           src="/static/question_images/{{post.imgsrc}}"
@@ -20,21 +20,21 @@
       </div>
 
       <div class="card-body">
-        <h2
-          class="card-title big-title text-uppercase"
-          style="color: #022179; font-family: playball"
+        <h1
+          class="card-title big-title text-uppercase text-center"
+          style="color: #022179; font-family: playball ; font-size: 4rem;"
         >
           {{post.branch}}
-        </h2>
+        </h1>
         <hr class="bg-dark" />
-        <p class="card-text">
+        <!-- <p class="card-text">
           {%if post.brnch=="RR"%}
 
           <small class="text-muted">Branch : All Branches</small>
           {%else%}
           <small class="text-muted">Branch : {{post.brnch}}</small>
           {%endif%}
-        </p>
+        </p> -->
 
         <p class="card-text">
           <small class="text-muted"

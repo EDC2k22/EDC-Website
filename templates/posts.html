@@ -21,13 +21,11 @@
     <form action='/sub' method='POST' style="margin-bottom: 2px;">
         <select class="form-select py-2 mr-2 my-2 p-3" style="border-radius: 10px;" name = "selsubbb" aria-label="" >
           <!-- <option selected value="random" disabled="disabled">Choose Subject</option> -->
-          <option selected value="random">Choose Branch</option>
-          <option value="Computer Engineering">Computer Engineering</option>
-          <option value="IT">IT</option>
-          <option value="Mechanical">Mechanical</option>
-          <option value="Civil">Civil</option>
-          <option value="AIML">AIML</option>
-          <option value="EXTC">EXTC</option>
+          <option selected value="random">Filter</option>
+          <option value="Blogs">Blogs</option>
+          <option value="Events">Events</option>
+          <option value="Seminars">Seminars</option>
+          <option value="Workshops">Workshops</option>
           <option value="RR"  >All</option>
 
         </select>
@@ -45,8 +43,10 @@
     <hr>
     
     {% if emp %}
-    
-    <h2 class="headd col " style="color: rgb(245, 137, 137);padding:0px">No Blogs Available !</h2>
+    <div class="container text-center">
+    <!-- <h2 class="headd col text-center" style="color: rgb(160, 245, 137);padding:0px">Coming soon !</h2> -->
+    <img  class = "img-fluid mx-auto " style="border: none; width: 300px;" src="/static/images/work-in-progress.png">
+</div>
     {% else %}
     <div class="row">
     {% for post in posts %}
