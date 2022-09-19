@@ -1,0 +1,67 @@
+{% extends 'Newbase.html' %}
+
+{% block head %}
+<title>New Post</title> 
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+{% endblock %}
+
+{% block body %}
+<!-- <h1>New question</h1> -->
+<body style="background-color:#d9daf3;">
+    <div class="container">
+      <div class="jumbotron my-2">
+    <h2>Add New Post:</h2>
+    <form action='/posts' method='POST' enctype="multipart/form-data">
+    
+        <textarea class="form-control" name='question' id="question" placeholder="Write your question here.." aria-label="Enter Content" rows="3" required></textarea>
+        <script>
+          // CKEDITOR.replace( 'question' );
+          $(document).ready(function() {
+  $('#question').summernote();
+});
+        </script>
+        <br>
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Name</span>
+            <input type="text" class="form-control" placeholder="" name="op1" id="op1" aria-label="Username" aria-describedby="addon-wrapping" required>
+          </div>
+          <br>
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Title</span>
+            <input type="text" class="form-control" placeholder="" name="op2" id="op2" aria-label="Username" aria-describedby="addon-wrapping" required>
+          </div><br>
+       
+        <br>
+        <div class="row ">
+        <div class=" mx-auto my-2">
+        <label for="author" class="mr-2 my-auto">Select :</label>
+        <select class="form-select py-2" name = "selsub" aria-label="">
+          <option selected value="random">Choose Branch</option>
+          <option value="Computer Engineering">Computer Engineering</option>
+          <option value="IT">IT</option>
+          <option value="Mechanical">Mechanical</option>
+          <option value="Civil">Civil</option>
+          <option value="AIML">AIML</option>
+          <option value="EXTC">EXTC</option>
+          <option value="RR"  >All</option>
+
+        </select>
+      </div>
+        <div class="mx-auto my-auto ">
+          <input type="file"
+          id="avatar" name="avatar">
+         </div>
+      </div>
+
+       <br>
+       <div class="text-center">
+        <input class=" btn getstartedd" type='submit' value='Submit Post '>
+        </div>
+    
+  </div>
+</div>
+</div>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'Newbase.html' %}
+
+{% block head %}
+<title>giving test</title>
+<style>
+@media only screen and (max-width: 780px){
+    table td{
+      font-size: 14px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<section class="p-1">
+    <div class="container">
+        <h3 class="big-title" >Manage members </h3>
+        <hr>
+        <table class="table table-sm table-warning   table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">profile</th>
+                <th scope="col">Name</th>
+                <th scope="col">email</th>
+                <th scope="col">actions</th>
+              </tr>
+              <tbody>
+                  {% for res in posts %}
+               
+                  <tr>
+                    
+                    <th scope="row">{{res.id}}</th>
+                    <th scope="row"><img class="" src="../static/expert_images/{{res.image}}" style="width:50px; "></th>
+                    <td>{{res.fname +" " + res.lname}}</td>
+                    <td>{{res.email}}</td>
+                    <td>    
+                       
+                          
+                                <a class="btn btn-sm btn-success px-4 " href="/expertupdate/{{res.id}}" data-toggle="modal" data-target="#modeledit{{res.id}}">Edit</a>
+                        
+                         
+                          
+                     
+                    </td>
+                    
+                  </tr>
+                  <div class="modal fade" id="modeledit{{res.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Edit {{res.fname+" "+res.lname}} details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="/expertupdate" method='POST'>
+                            <div class="form-group">
+                     
+                              <input type="hidden" class="form-control" id="recipient-name" name="id" value="{{res.id}}">
+                            </div>
+                            <div class="form-group">
+                              <label for="recipient-name" class="col-form-label">Email:</label>
+                              <input type="email" name="email" class="form-control" id="recipient-name" value="{{res.email}}">
+                            </div>
+                            <div class="form-group">
+                              <label for="password" class="col-form-label">Password:</label>
+                              <input type="text" name="password" class="form-control" id="password" value="{{res.pwd}}">
+                            </div>
+                            <div class=" mx-auto my-2 col">
+                                <label for="author" class="mr-2 my-auto">Select Role:</label>
+                                <select class="form-select py-2" name = "selsub" aria-label="">
+                                  <option selected value="random">Choose Role</option>
+                                  <option value="Technical">Technical</option>
+                                  <option value="Creative">Creative</option>
+                                  <option value="Socialmedia">Social Media</option>
+                                  <option value="Organizing">Organizing</option>
+                                  <option value="Treasurer">Treasurer</option>
+                                  <option value="Public Relation">Public Relation</option>
+                                  <option value="Hospitality">Hospitality</option>
+                                  <option value="President">President</option>
+                                  <option value="General Secretary">General Secretary</option>
+                                  <option value="Investors">Investor</option>
+                                  <option value="Member">Member</option>
+                        
+                                </select>
+                              </div>
+                              
+                          <button type="submit" class="btn btn-secondary" >Update</button>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>    
+</section>
+
+                  {% endfor%}
+                </tbody>
+            </thead>
+        </table>
+
+
+
+    </div>
+
+
+{% endblock %}

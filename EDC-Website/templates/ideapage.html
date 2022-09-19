@@ -1,0 +1,92 @@
+{% extends 'Newbase.html' %} {% block head %}
+<title>Idea</title>
+
+{% endblock %} {% block body %}
+<div class="container">
+    <div class="card p-5 ">
+        <div class="row">
+            <div class=" container my-auto mx-auto">
+                
+                    {% if post.imgsrc != "" %}
+                    <img src="/static/question_images/{{post.imgsrc}}" alt="" class="mx-auto" style="width: 50%; border-radius: 20px;">
+                    {%endif%}   
+                    <div class="info">
+                        <h3></h3>
+                        
+                    </div>
+                   
+            
+            
+            </div>
+          
+                <div class="card-body " >
+                    <h2 class="card-title big-title text-uppercase" >{{post.title}}</h2>
+                    <p class="card-text">
+                        <small class="text-muted">Contact : {{post.phone}}</small>
+                      </p>
+                    <p class="card-text">
+                        <small class="text-muted">Email : {{post.email}}</small>
+                      </p>
+                    <p class="card-text">
+                        <small class="text-muted">Date : {{post.date_posted.strftime("%d/%m/%Y")}}</small>
+                      </p>
+                    <br>
+                    <p class="card-text text-justify">{{post.desc}}</p>
+                   
+            
+            </div>
+        </div>
+      
+    <!-- <img
+      src="../static/question_images/{{post.imgsrc}}"
+      class="card-img-top img-fluid"
+      alt="..."
+    /> -->
+    
+  </div>
+  {%if post.uid == current_user.id%}
+<hr>
+  <h1 class="headd col big-title" style="padding:0px">Investors List :</h1>
+  <hr>
+<table class="table table-warning ">
+    <thead class=" table-dark"> 
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date</th>
+          <th scope="col">Actions</th>
+        </tr>
+        <tbody>
+           {%for res in books%}
+            <tr>
+              
+              <th scope="row">{{res.id}}</th>
+              
+              <td>{{res.name}}</td>
+              <td>{{res.mobile}}</td>
+              <td>{{res.price}}</td>
+              <td>{{res.details}}</td>
+              <td>{{res.date_posted.strftime("%d/%m/%Y")}}</td>
+              
+              <td>    
+                <div class="row">
+                   
+                        <a class="btn btn-sm btn-success mr-2" href="/acceptidea/{{post.uid}}/{{res.id}}/{{post.id}}">Accept</a>
+                        <a class="btn btn-sm btn-warning mr-2" href="/rejectidea/{{post.uid}}/{{res.id}}/{{post.id}}">Reject</a>
+                        <a class="btn btn-sm btn-danger mr-2" href="/deleteinvestor/{{post.uid}}/{{res.id}}/{{post.id}}">Delete</a>
+                
+                </div>
+            </td>
+            </tr>
+           {%endfor%}
+          
+           
+          </tbody>
+      </thead>
+  </table>
+  {%endif%}
+</div>
+{% endblock %}
