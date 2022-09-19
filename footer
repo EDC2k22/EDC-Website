@@ -1,0 +1,57 @@
+footer class="w-100 py-1 flex-shrink-0" style="margin-top: 1rem">
+      <div class="container py-3">
+        <div class="row gy-4 gx-5">
+          <div class="col-lg-4 col-md-6">
+            <img
+              src="{{url_for('static',filename='EDClogo2.png')}}"
+              alt=""
+              width="250px"
+              height="150px"
+            />
+            <h5 class="h1 text-white" style="margin-left: 35px">EDC</h5>
+
+            <p class="small text-muted" style="margin-right: 5rem">
+              Inspiring young minds, one startup at a time!
+            </p>
+            <p class="small text-muted mb-0">
+              &copy; Copyrights. All rights reserved.
+              <a class="text-primary" href="#">Developed by EDC teams</a>
+            </p>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <h5 class="text-white mb-3">Quick links</h5>
+            <ul class="list-unstyled text-muted">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Events</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <h5 class="text-white mb-3">links</h5>
+            <ul class="list-unstyled text-muted">
+              <li><a href="#">History</a></li>
+              <li><a href="#">achievements</a></li>
+              <li><a href="#">Vocab series</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <h5 class="text-white mb-3">let's connect</h5>
+            <a href="https://www.linkedin.com/in/edc-mhssce" class="me-4">
+              <i class="bi bi-linkedin text-white mx-4 bi-lg"></i>
+            </a>
+            <a
+              href="https://instagram.com/edc_mhssce?igshid=YmMyMTA2M2Y="
+              class="me-4"
+            >
+            <i class="bi bi-instagram text-white mx-4 bi-lg"></i>
+            </a>
+            <!-- <a href="#" class="me-4">
+              <i class="fa fa-twitter fa-lg"></i>
+            </a> -->
+            <p class="large text-muted" style="margin-right: 18rem">
+              Any query? <a href="#">Contact us</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
