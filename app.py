@@ -2,7 +2,7 @@
 
 from operator import truediv
 from pickle import FALSE
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from forms import LoginForm
@@ -32,12 +32,15 @@ def allowed_file(filename):
 
 QUESTION_IMAGE_UPLOAD_FOLDER = 'static/question_images'
 EXPERT_IMAGE_UPLOAD_FOLDER = 'static/expert_images'
+OVERVIEW_PDF_UPLOAD_FOLDER = 'static/pdf'
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///EDC.db'
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 app.config['QUESTION_IMAGE_UPLOAD_FOLDER'] = QUESTION_IMAGE_UPLOAD_FOLDER
 app.config['EXPERT_IMAGE_UPLOAD_FOLDER'] = EXPERT_IMAGE_UPLOAD_FOLDER
+app.config['OVERVIEW_PDF_UPLOAD_FOLDER'] = OVERVIEW_PDF_UPLOAD_FOLDER
 
 ckeditor = CKEditor(app)
 bcrypt = Bcrypt(app)
@@ -100,6 +103,7 @@ class Ideas(db.Model):
     sold = db.Column(db.Text, nullable=False)
 
     imgsrc = db.Column(db.String(100), default='')
+    pdfsrc = db.Column(db.String(100), default='')
 
     date_posted = db.Column(db.DateTime, nullable=False,
                             default=datetime.utcnow)
@@ -205,6 +209,17 @@ def save_picture(form_picture):
         app.root_path, 'static/question_images', picture_fn)
     print(picture_path)
     return picture_fn
+
+def save_pdf(pdfob):
+    randhex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(pdfob)
+    pdffn = randhex + f_ext
+    pdf_path = os.path.join(app.root_path, OVERVIEW_PDF_UPLOAD_FOLDER, pdffn)
+    return pdffn
+
+@app.route('/downloadpdf/<pdfname>', methods=['GET'])
+def downloadpdf(pdfname):
+    return send_file(os.path.join(OVERVIEW_PDF_UPLOAD_FOLDER, pdfname))
 
 
 def save_pictureexpert(form_picture):
@@ -331,6 +346,14 @@ def memberpage():
     return render_template('Newindex.html', news=news)
 
 
+@app.route('/certificates', methods=['GET', 'POST'])
+@login_required
+def certificates():
+    
+    return render_template('certificate.html')
+    
+
+
 @app.route('/expertupdate', methods=['GET', 'POST'])
 @login_required
 def expertupdate():
@@ -389,6 +412,8 @@ def addidea():
         verified = "0"
         sold = "0"
         pic = request.files['avatar']
+        overviewpdf = request.files['overviewpdf']
+        pdfname = secure_filename(overviewpdf.filename)
 
         filename = secure_filename(pic.filename)
     # print(filename+"this is the file name")
@@ -402,9 +427,17 @@ def addidea():
         else:
             print("no image")
             fname = ""
+        
+        if pdfname != "":
+            pname = save_pdf(pdfname)
+            overviewpdf.save(os.path.join(app.config['OVERVIEW_PDF_UPLOAD_FOLDER'], pname))
+        else:
+            pname = ""
+
+
 
         myidea = Ideas(title=title, desc=desc, fund=fund, uid=uid,
-                       uname=uname, verified=verified, sold=sold, imgsrc=fname, email=email, phone=contact)
+                       uname=uname, verified=verified, sold=sold, imgsrc=fname, pdfsrc=pname, email=email, phone=contact)
         db.session.add(myidea)
         db.session.commit()
         flash("Idea Added succesfully", "success")
@@ -833,7 +866,7 @@ def login():
         # flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', form=form)
 
-
+'''
 @apscheduler.task('interval', id='tmp_deletion_job', minutes=5, misfire_grace_time=900)
 def clean_tmp_folder():
     folder = 'tmp'
@@ -847,7 +880,7 @@ def clean_tmp_folder():
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
             pass
-
+'''
 
 @app.route("/logout")
 def logout():

@@ -32,7 +32,11 @@
                       </p>
                     <br>
                     <p class="card-text text-justify">{{post.desc}}</p>
-                   
+
+
+                   {% if post.pdf_name != "" %}
+                      <a href="/downloadpdf/{{post.pdfsrc}}">Get Overview PDF</a>
+                    {%endif%}
             
             </div>
         </div>

@@ -1,0 +1,205 @@
+.text-small {
+    font-size: 0.9rem;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none !important;
+    transition: all 0.3s;
+  }
+  
+  a:hover,
+  a:focus {
+    color: gray ;
+    text-decoration: none;
+  }
+  
+  .form-control {
+    background: #212529;
+    border-color: #545454;
+  }
+  
+  .form-control:focus {
+    background: #212529;
+  }
+  
+  footer {
+    background: #001e46;
+  }
+  
+  body,
+  html {
+    height: 100%;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .logo-main {
+      width: 250px;
+    }
+  
+    #title {
+      text-align: center;
+      right: 10px;
+      width: 16rem;
+    }
+  
+    h1 {
+      font-size: calc(1rem + 1vw) !important;
+    }
+  
+    .zero {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  
+    .response {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+  
+  .animation {
+    position: relative;
+    font-size: 1em !important;
+    animation: text 6s infinite;
+    text-align: left;
+    animation-duration: 5s;
+    text-shadow: 2px 2px 4px skyblue;
+  }
+  
+  @keyframes text {
+    0% {
+      display: none;
+      left: 0%;
+    }
+    50% {
+      left: 30%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  #announce {
+    background-color: #022179;
+    padding: 10px;
+    font-size: 1em;
+    text-shadow: 2px 2px 4px black;
+    color: white;
+  }
+  
+  #canvasForAnnouncement {
+    height: 3rem;
+    display: inline;
+    margin-bottom: 2rem;
+    font-size: 1.2em;
+    background-color: lightgrey;
+  }
+  @media screen and (min-width: 400px) {
+    #cardLearn {
+      display: flex;
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+  }
+  .myh3 {
+    margin: auto;
+    width: 50%;
+    font-size: 2.5rem;
+    padding: 10px;
+    text-align: center;
+    color: darkblue;
+    text-shadow: 2px 2px 4px skyblue;
+  }
+  .card {
+    margin: 3em;
+    box-shadow: 10px 10px turquoise;
+  }
+  .card:hover {
+    position: relative;
+    top: 5px;
+  }
+  #MoreVocab {
+    float: right;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    width: 6em;
+  }
+  #buttonVocab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  /* #aboutUs{
+    height: 18rem;
+    width: 30rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    text-align: justify;
+    padding: 10px;
+    
+  } */
+  #about {
+    height: 20rem;
+    width: 20rem;
+    /* margin-left: 2rem; */
+  }
+  
+  #headinfo {
+    width: 50rem;
+    height: 20rem;
+    /* margin-right: 9rem; */
+  }
+  #aboutbody {
+    display: inline-block;
+    flex-wrap: wrap;
+  }
+  
+  #aboutandhead {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: skyblue;
+    justify-content: center;
+  }
+  #portrait_bg {
+    background-color: #77819c;
+    padding: 1em;
+  }
+  
+  #portrait_txt {
+    text-align: center;
+    color: #fff;
+    background-color: #77819c;
+    padding: 1.5em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+  }
+  
+  #prev {
+    background-color: white;
+    height: fit-content;
+    margin-top: 16em;
+    margin-left: 1em;
+    width: fit-content;
+    padding: 1em;
+    border-radius: 100%;
+  }
+  #next {
+    background-color: white;
+    height: fit-content;
+    margin-top: 16em;
+    margin-right: 1em;
+    width: fit-content;
+    padding: 1em;
+    border-radius: 100%;
+  }
+  
+  /*  */
+  
+  .image_logo {
+    background-color: rgba(255, 255, 255, 0.6);
+  }

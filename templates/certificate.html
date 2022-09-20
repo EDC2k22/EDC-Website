@@ -1,0 +1,16 @@
+{% extends "Newbase.html"%}
+{% block head %}
+<title>Certificates</title>
+
+{% endblock %} {%block body%}
+
+<iframe src="" frameborder="0" scrolling="no" id="iframe" style="border: none" width="100%" height="600"></iframe>
+
+<script>
+  const u = "https://firebasestorage.googleapis.com/v0/b/edc-website-6f8a9.appspot.com/o/123.pdf?alt=media&token=af4da31d-668a-49f7-979a-5885f10d3630";
+  //console.log(u);
+  let ifr = document.getElementById("iframe");
+  ifr.src = "https://docs.google.com/viewer?url="+u+"&embedded=true";
+</script>
+
+{%endblock%}
