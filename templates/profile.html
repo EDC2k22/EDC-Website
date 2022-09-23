@@ -3,7 +3,7 @@
 
 {% endblock %} {% block body %}
 <div class="container" style="align-items: center; background-color: rgb(234, 229, 229); border-radius: 20px;">
-  <h1 class="headd col big-title" style="padding:0px">Dashboard</h1>
+  <h1 class="headd col big-title text-center" style="padding:0px">Dashboard</h1>
  
   <div class="container rounded">
 <section class="p-2">
@@ -16,7 +16,7 @@
               src="/static/expert_images/{{user.image}}"
               alt="avatar"
               class="rounded-circle img-fluid"
-              style="width: 150px"
+              style="max-width: 150px; max-height: 150px;"
             />
             <h5 class="my-3">{{user.fname +" "+user.lname }}</h5>
             {% if current_user.subject!="Admin" and current_user.subject!="Investors"%}
@@ -65,6 +65,17 @@
                 <p class="text-muted mb-0">{{user.address}}</p>
               </div>
             </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Date Joined</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.date.strftime("%d/%m/%Y")}}</p>
+              </div>
+            </div>
+            <hr />
+
           </div>
         </div>
   
@@ -285,6 +296,7 @@
              
                 <div class="buttons">
                   {%if post.sold=="0"%}
+
                     <a href="/Idea/{{post.id}}" class="getstartedd btn-sm mx-auto mt-3">Read more</a>
                     {%endif%}
                  
@@ -294,6 +306,7 @@
                       {%if post.sold=="0"%}
                       <a  class="getstartedd btn-sm  bg-warning mx-auto mt-3">Waiting</a>
                       {%else%}
+                      <a href="/Idea/{{post.id}}" class="getstartedd btn-sm mx-auto mt-3">Read more</a>
                       <a  class="getstartedd btn-sm  bg-success mx-auto mt-3">Accepted</a>
                       {%endif%}
                       {%else%}

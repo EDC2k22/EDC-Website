@@ -15,7 +15,11 @@
 
   <div class="container-fluid p-5  " style="background-color: #e9e5cf; border-radius: 20px;   box-shadow: 2px 6px 8px 0 rgb(22 22 26 / 18%);">
 <div class="container-fluid row" style="align-items: center;">
-    <h1 class="headd col big-title" style="padding:0px">EDC Blogs</h1>
+    <h1 class="headd  big-title" style="padding:0px">EDC Feed</h1>
+    <div class="col">
+        <img  class = "img-fluid mx-auto" style="border: none;" src="/static/images/business.png">
+    </div>
+   
     <!-- <label for="author" class="mr-2">Select Topic:</label> -->
   
     <form action='/sub' method='POST' style="margin-bottom: 2px;">
@@ -90,7 +94,7 @@
                         <h3> <i class="fas fa-users"></i> {{post.brnch}} </h3>
                         {%endif%}
                        
-                        <h3> <i class="fas fa-eye"></i> 2 views  </h3>
+                        <h3> <i class="fas fa-eye"></i> {{post.views}} views  </h3>
                     </div>
                     <div class="buttons">
                         <a href="/readblog/{{post.id}}" class="getstartedd btn-sm mx-auto">Read more</a>

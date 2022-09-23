@@ -1,7 +1,8 @@
 
 
+from email.policy import default
 from operator import truediv
-from pickle import FALSE
+from pickle import FALSE, NONE
 from flask import Flask, render_template, request, redirect, flash, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -72,6 +73,7 @@ class admin(UserMixin):
 class Blogs(db.Model):
     __tablename__ = 'blogs'
     id = db.Column(db.Integer, primary_key=True)
+    views = db.Column(db.Integer, default=0)
     title = db.Column(db.String(100), nullable=False)
 
     name = db.Column(db.Text, nullable=False)
@@ -127,6 +129,8 @@ class Expert(db.Model, UserMixin):
     address = db.Column(db.String(100))
     image = db.Column(db.String(100), default='')
     receipt = db.Column(db.String(100), default='')
+    date = db.Column(db.DateTime, nullable=False,
+                     default=datetime.utcnow)
 
     def __repr__(self):
         # return 'expert ' + str(self.id)
@@ -210,12 +214,14 @@ def save_picture(form_picture):
     print(picture_path)
     return picture_fn
 
+
 def save_pdf(pdfob):
     randhex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(pdfob)
     pdffn = randhex + f_ext
     pdf_path = os.path.join(app.root_path, OVERVIEW_PDF_UPLOAD_FOLDER, pdffn)
     return pdffn
+
 
 @app.route('/downloadpdf/<pdfname>', methods=['GET'])
 def downloadpdf(pdfname):
@@ -304,6 +310,8 @@ def readblog(id):
     if current_user.is_authenticated:
 
         blog = Blogs.query.get_or_404(id)
+        blog.views = blog.views+1
+        db.session.commit()
 
         return render_template('blogpage.html', post=blog)
     return render_template('Newindex.html', news=news)
@@ -349,9 +357,8 @@ def memberpage():
 @app.route('/certificates', methods=['GET', 'POST'])
 @login_required
 def certificates():
-    
+
     return render_template('certificate.html')
-    
 
 
 @app.route('/expertupdate', methods=['GET', 'POST'])
@@ -370,6 +377,36 @@ def expertupdate():
             experts.email = request.form['email']
             experts.pwd = request.form['password']
             experts.subject = request.form['selsub']
+            experts.fname = request.form['fname']
+            experts.lname = request.form['lname']
+            experts.phone = request.form['phone']
+            receipt = request.files['receipt']
+            img = request.files['image']
+            print("updating files")
+
+            if receipt.filename != "":
+                filename2 = secure_filename(receipt.filename)
+                fname2 = save_pictureexpert(filename2)
+                src2 = experts.receipt
+                if src2 != "":
+
+                    os.remove(os.path.join(
+                        app.config['EXPERT_IMAGE_UPLOAD_FOLDER'], src2))
+                receipt.save(os.path.join(
+                    app.config['EXPERT_IMAGE_UPLOAD_FOLDER'], fname2))
+                experts.receipt = fname2
+            if img.filename != "":
+                filename3 = secure_filename(img.filename)
+                fname3 = save_pictureexpert(filename3)
+                src3 = experts.image
+                if src3 != "":
+
+                    os.remove(os.path.join(
+                        app.config['EXPERT_IMAGE_UPLOAD_FOLDER'], src3))
+
+                img.save(os.path.join(
+                    app.config['EXPERT_IMAGE_UPLOAD_FOLDER'], fname3))
+                experts.image = fname3
             db.session.commit()
             flash("Update succesfully", "success")
             return render_template('expertmanage.html', posts=allexpert)
@@ -427,14 +464,13 @@ def addidea():
         else:
             print("no image")
             fname = ""
-        
+
         if pdfname != "":
             pname = save_pdf(pdfname)
-            overviewpdf.save(os.path.join(app.config['OVERVIEW_PDF_UPLOAD_FOLDER'], pname))
+            overviewpdf.save(os.path.join(
+                app.config['OVERVIEW_PDF_UPLOAD_FOLDER'], pname))
         else:
             pname = ""
-
-
 
         myidea = Ideas(title=title, desc=desc, fund=fund, uid=uid,
                        uname=uname, verified=verified, sold=sold, imgsrc=fname, pdfsrc=pname, email=email, phone=contact)
@@ -636,9 +672,17 @@ def record():
             Expert.subject == "Creative", Expert.verified == 1).all()
         creativecount = Expert.query.filter(
             Expert.subject == "Creative", Expert.verified == 1).count()
+        eventcount = Blogs.query.filter(
+            Blogs.brnch == "Events").count()
+        blogcount = Blogs.query.filter(
+            Blogs.brnch == "Blogs").count()
+        seminarcount = Blogs.query.filter(
+            Blogs.brnch == "Seminars").count()
+        workshopcount = Blogs.query.filter(
+            Blogs.brnch == "Workshops").count()
 
         return render_template('record.html', technical=technical, members=members, generalsec=generalsec, president=president, hospitality=hospitality, publicrelation=publicrelation, treasurer=treasurer, organizing=organizing, creative=creative, social=social, users=userno, technicalcount=technicalcount,
-                               membc=memberscount, generalsecc=generalseccount, presidentc=presidentcount, hospitalityc=hospitalitycount, publicrelationc=publicrelationcount, treasurerc=treasurercount, organizingc=organizingcount, creativec=creativecount, socialc=socialcount, newscount=newscount, member=members, investor=investor, investorcount=investorcount)
+                               membc=memberscount, generalsecc=generalseccount, presidentc=presidentcount, hospitalityc=hospitalitycount, publicrelationc=publicrelationcount, treasurerc=treasurercount, organizingc=organizingcount, creativec=creativecount, socialc=socialcount, newscount=newscount, member=members, investor=investor, investorcount=investorcount, event=eventcount, blog=blogcount, seminar=seminarcount, workshop=workshopcount)
     return render_template('Newindex.html', news=news)
 
 
@@ -866,6 +910,7 @@ def login():
         # flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', form=form)
 
+
 '''
 @apscheduler.task('interval', id='tmp_deletion_job', minutes=5, misfire_grace_time=900)
 def clean_tmp_folder():
@@ -881,6 +926,7 @@ def clean_tmp_folder():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
             pass
 '''
+
 
 @app.route("/logout")
 def logout():
